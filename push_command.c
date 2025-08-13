@@ -1,19 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_command.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 16:16:40 by srikuto           #+#    #+#             */
+/*   Updated: 2025/08/11 16:17:47 by srikuto          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 static void	push_command(t_stack_node **from, t_stack_node **to);
-void	pa(t_stack_node **a, t_stack_node **b);
-void	pb(t_stack_node **a, t_stack_node **b);
 
 void	pa(t_stack_node **a, t_stack_node **b)
 {
 	push_command(b, a);
 	write(1, "pa\n", 3);
 }
+
 void	pb(t_stack_node **a, t_stack_node **b)
 {
 	push_command(a, b);
 	write(1, "pb\n", 3);
 }
+
 static void	push_command(t_stack_node **from, t_stack_node **to)
 {
 	t_stack_node	*node;
@@ -23,7 +35,6 @@ static void	push_command(t_stack_node **from, t_stack_node **to)
 	if (!*from)
 		return ;
 	node = *from;
-
 	if (node->next == node)
 		*from = NULL;
 	else

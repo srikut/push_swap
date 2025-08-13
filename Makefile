@@ -3,8 +3,8 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = push_swap.c init_stack.c assign_ranks.c radix_sort.c \
-       push_command.c rotation_command.c reverse_rotation_command.c \
-       small_sort.c swap_command.c ft_split.c ft_atoi.c
+		push_command.c rotation_command.c\
+		ft_split.c ft_atoi.c
 OBJS = $(SRCS:.c=.o)
 HEADER = push_swap.h
 

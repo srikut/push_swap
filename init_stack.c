@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_stack.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/11 16:18:19 by srikuto           #+#    #+#             */
+/*   Updated: 2025/08/11 18:29:03 by srikuto          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	init_stack_node(int argc, char **argv, t_stack_node **a);
@@ -25,7 +37,7 @@ void	init_stack_node(int argc, char **argv, t_stack_node **a)
 		i++;
 	}
 	if (argc == 2)
-		free(args);//ここでメモリーリクの恐れあり
+		free(args);
 }
 
 static void	push_node(t_stack_node **stack, const char *str)
@@ -34,7 +46,6 @@ static void	push_node(t_stack_node **stack, const char *str)
 	t_stack_node	*tail;
 
 	new_node = create_node(str);
-	/*空のリストだった場合*/
 	if (*stack == NULL)
 	{
 		new_node->next = new_node;
@@ -43,12 +54,11 @@ static void	push_node(t_stack_node **stack, const char *str)
 	}
 	else
 	{
-		tail = (*stack)->prev;//末尾のリストの取得
+		tail = (*stack)->prev;
 		new_node->next = *stack;
 		new_node->prev = tail;
 		tail->next = new_node;
 		(*stack)->prev = new_node;
-		*stack = new_node;//新しいのーどを先頭に追加
 	}
 }
 

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   assign_ranks.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/08/10 15:18:42 by srikuto           #+#    #+#             */
+/*   Updated: 2025/08/10 15:37:31 by srikuto          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "push_swap.h"
 
 void	assign_ranks(t_stack_node *a);
+static int	find_rank(int *arr, int n, int key);
 int	count_nodes(t_stack_node *a);
 static void	copy_array(t_stack_node *a, int *arr);
 static void	quick_sort(int *n, int left, int right);
-static int	find_rank(int *arr, int n, int key);
 
 void	assign_ranks(t_stack_node *a)
 {
@@ -25,7 +37,8 @@ void	assign_ranks(t_stack_node *a)
 	{
 		tmp->rank = find_rank(arr, n, tmp->value);
 		tmp = tmp->next;
-	} while (tmp != a);
+	}
+	while (tmp != a);
 	free(arr);
 }
 static int	find_rank(int *arr, int n, int key)
