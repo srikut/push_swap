@@ -6,7 +6,7 @@
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/16 01:58:29 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/16 13:55:35 by srikuto          ###   ########.fr       */
+/*   Updated: 2025/09/16 15:49:17 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ void	error_exit(void)
 
 void	free_stack(t_stack_node **stack)
 {
-    t_stack_node	*cur;
-    t_stack_node	*next;
+	t_stack_node	*cur;
+	t_stack_node	*next;
 
 	if (!stack || !*stack)
 		return ;
@@ -38,11 +38,11 @@ void	free_stack(t_stack_node **stack)
 
 void	free_split(char **arr)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (!arr)
-		return ;	
+		return ;
 	while (arr[i])
 	{
 		free(arr[i]);

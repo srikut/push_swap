@@ -6,7 +6,7 @@
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/03 19:01:34 by srikuto           #+#    #+#             */
-/*   Updated: 2025/07/26 21:11:33 by srikuto          ###   ########.fr       */
+/*   Updated: 2025/09/16 15:18:00 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	**ft_split(char const *s, char c)
 	split = malloc_word_len(str, s, c);
 	if (split == NULL)
 	{
-		free(str);
+		free_split(str);
 		return (NULL);
 	}
 	return (assign_char(split, s, c));
