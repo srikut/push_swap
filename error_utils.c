@@ -1,39 +1,52 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   error_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 14:50:42 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/16 13:30:13 by srikuto          ###   ########.fr       */
+/*   Created: 2025/09/16 01:58:29 by srikuto           #+#    #+#             */
+/*   Updated: 2025/09/16 13:55:35 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *nptr)
+void	error_exit(void)
 {
-	int			sign;
-	long long	output;
+	write(2, "Error\n", 6);
+	exit (1);
+}
 
-	while ((*nptr >= 9 && *nptr <= 13) || *nptr == 32)
-		nptr++;
-	sign = 1;
-	if (*nptr == '-' || *nptr == '+')
+void	free_stack(t_stack_node **stack)
+{
+    t_stack_node	*cur;
+    t_stack_node	*next;
+
+	if (!stack || !*stack)
+		return ;
+	cur = (*stack)->next;
+	while (cur != *stack)
 	{
-		if (*nptr == '-')
-			sign *= -1;
-		nptr++;
+		next = cur->next;
+		free (cur);
+		cur = next;
 	}
-	output = 0;
-	while (*nptr >= '0' && *nptr <= '9')
+	free (*stack);
+	*stack = NULL;
+}
+
+void	free_split(char **arr)
+{
+	int i;
+
+	i = 0;
+	if (!arr)
+		return ;	
+	while (arr[i])
 	{
-		output = (output * 10) + (*nptr - '0');
-		nptr++;
+		free(arr[i]);
+		i++;
 	}
-	output *= sign;
-	if (output > INT_MAX || output < INT_MIN)
-		error_exit();
-	return (output);
+	free(arr);
 }

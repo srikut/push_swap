@@ -1,50 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   contains_value.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 14:51:38 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/16 13:58:09 by srikuto          ###   ########.fr       */
+/*   Created: 2025/09/16 00:55:26 by srikuto           #+#    #+#             */
+/*   Updated: 2025/09/16 08:59:57 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-// void	print_stack(t_stack_node *a)
-// {
-// 	t_stack_node *cur;
-
-// 	if (!a)
-// 		return;
-// 	cur = a;
-// 	do
-// 	{
-// 		printf("%d ", cur->value);
-// 		cur = cur->next;
-// 	} while (cur != a);
-// 	printf("\n");
-// }
-int	main(int argc, char **argv)
+int	contains_value(t_stack_node *a, int v)
 {
-	t_stack_node	*a;
-	t_stack_node	*b;
 	int				n;
+	int				i;
+	t_stack_node	*cur;
 
-	a = NULL;
-	b = NULL;
-	init_stack_node(argc, argv, &a);
 	if (!a)
 		return (0);
-	assign_ranks(a);
 	n = count_nodes(a);
-	if (is_sorted(a))
-		return (0);
-	if (n <= 5)
-		sort_small(&a, &b);
-	else
-		radix_sort(&a, &b);
-	free_stack(&a);
+	cur = a;
+	i = 0;
+	while (i < n)
+	{
+		if (cur->value == v)
+			return (1);
+		cur = cur->next;
+		i++;
+	}
 	return (0);
 }

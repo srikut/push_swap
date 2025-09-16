@@ -1,39 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   is_num.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 14:50:42 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/16 13:30:13 by srikuto          ###   ########.fr       */
+/*   Created: 2025/09/16 03:51:24 by srikuto           #+#    #+#             */
+/*   Updated: 2025/09/16 09:49:01 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *nptr)
-{
-	int			sign;
-	long long	output;
+static int	ft_isdigit(int c);
 
-	while ((*nptr >= 9 && *nptr <= 13) || *nptr == 32)
-		nptr++;
-	sign = 1;
-	if (*nptr == '-' || *nptr == '+')
+int	is_num(char **argv)
+{
+	int	i;
+	int	j;
+
+	i = 1;
+	while (argv[i])
 	{
-		if (*nptr == '-')
-			sign *= -1;
-		nptr++;
+		j = 0;
+		while (argv[i][j])
+		{
+			if (!(ft_isdigit(argv[i][j])
+				|| (j == 0 && (argv[i][j] == '-' || argv[i][j] == '+'))))
+				return (0);
+			j++;
+		}
+		i++;
 	}
-	output = 0;
-	while (*nptr >= '0' && *nptr <= '9')
-	{
-		output = (output * 10) + (*nptr - '0');
-		nptr++;
-	}
-	output *= sign;
-	if (output > INT_MAX || output < INT_MIN)
-		error_exit();
-	return (output);
+	return (1);
+}
+
+static int	ft_isdigit(int c)
+{
+	if ('0' <= c && c <= '9')
+		return (1);
+	else
+		return (0);
 }

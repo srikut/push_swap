@@ -5,111 +5,22 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/15 12:22:30 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/15 21:47:41 by srikuto          ###   ########.fr       */
+/*   Created: 2025/09/16 10:41:27 by srikuto           #+#    #+#             */
+/*   Updated: 2025/09/16 10:50:01 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	is_sorted(t_stack_node *a)
-{
-	t_stack_node	*cur;
-
-	if (!a || a->next == a)
-		return (1);
-	cur = a;
-	while (cur->next != a)
-	{
-		if (cur->rank > cur->next->rank)
-			return (0);
-		cur = cur->next;
-	}
-	return (1);
-}
-
-static int	index_of_min(t_stack_node *a)
-{
-	int				pos;
-	int				best_pos;
-	int				best;
-	t_stack_node	*cur;
-
-	pos = 0;
-	best_pos = 0;
-	best = a->rank;
-	cur = a->next;
-	while (cur != a)
-	{
-		pos++;
-		if (cur->rank < best)
-		{
-			best = cur->rank;
-			best_pos = pos;
-		}
-		cur = cur->next;
-	}
-	return (best_pos);
-}
-
-static void	rotate_to_top(t_stack_node **a, int pos, int size)
-{
-	int	i;
-
-	i = 0;
-	if (pos <= size / 2)
-	{
-		while (i < pos)
-		{
-			ra(a);
-			i++;
-		}
-	}
-	else
-	{
-		while (i < size - pos)
-		{
-			rra(a);
-			i++;
-		}
-	}
-}
-
-static void	sort_three(t_stack_node **a)
-{
-	int	x;
-	int	y;
-	int	z;
-
-	if (is_sorted(*a))
-		return ;
-	x = (*a)->rank;
-	y = (*a)->next->rank;
-	z = (*a)->next->next->rank;
-	if (x > y && y < z && x < z)
-		sa(a);
-	else if (x > y && y > z)
-	{
-		sa(a);
-		rra(a);
-	}
-	else if (x > y && y < z && x > z)
-		ra(a);
-	else if (x < y && y > z && x < z)
-	{
-		sa(a);
-		ra(a);
-	}
-	else if (x < y && y > z && x > z)
-		rra(a);
-}
+static void	push_mins_until_three(t_stack_node **a, t_stack_node **b);
+static void	restore_from_b(t_stack_node **a, t_stack_node **b);
 
 void	sort_small(t_stack_node **a, t_stack_node **b)
 {
 	int	n;
-	int	size;
-	int	pos;
 
+	if (!a || !*a)
+		return ;
 	n = count_nodes(*a);
 	if (is_sorted(*a))
 		return ;
@@ -124,6 +35,16 @@ void	sort_small(t_stack_node **a, t_stack_node **b)
 		sort_three(a);
 		return ;
 	}
+	push_mins_until_three(a, b);
+	sort_three(a);
+	restore_from_b(a, b);
+}
+
+static void	push_mins_until_three(t_stack_node **a, t_stack_node **b)
+{
+	int	size;
+	int	pos;
+
 	while (count_nodes(*a) > 3)
 	{
 		size = count_nodes(*a);
@@ -131,7 +52,10 @@ void	sort_small(t_stack_node **a, t_stack_node **b)
 		rotate_to_top(a, pos, size);
 		pb(a, b);
 	}
-	sort_three(a);
+}
+
+static void	restore_from_b(t_stack_node **a, t_stack_node **b)
+{
 	while (*b)
 		pa(a, b);
 }

@@ -6,7 +6,7 @@
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:52:18 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/15 21:43:53 by srikuto          ###   ########.fr       */
+/*   Updated: 2025/09/16 11:34:28 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 void		assign_ranks(t_stack_node *a);
 int			count_nodes(t_stack_node *a);
 static void	copy_array(t_stack_node *a, int *arr);
-static void	quick_sort(int *n, int left, int right);
 static int	find_rank(int *arr, int n, int key);
 
 void	assign_ranks(t_stack_node *a)
@@ -63,37 +62,6 @@ static int	find_rank(int *arr, int n, int key)
 			right = mid - 1;
 	}
 	return (-1);
-}
-
-static void	quick_sort(int *n, int left, int right)
-{
-	int	i;
-	int	j;
-	int	pivot;
-	int	tmp;
-
-	i = left;
-	j = right;
-	pivot = n[(left + right) / 2];
-	while (i <= j)
-	{
-		while (n[i] < pivot)
-			i++;
-		while (n[j] > pivot)
-			j--;
-		if (i <= j)
-		{
-			tmp = n[i];
-			n[i] = n[j];
-			n[j] = tmp;
-			i++;
-			j--;
-		}
-	}
-	if (left < j)
-		quick_sort(n, left, j);
-	if (i < right)
-		quick_sort(n, i, right);
 }
 
 static void	copy_array(t_stack_node *a, int *arr)

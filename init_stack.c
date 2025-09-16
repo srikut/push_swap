@@ -6,7 +6,7 @@
 /*   By: srikuto <srikuto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/15 12:35:05 by srikuto           #+#    #+#             */
-/*   Updated: 2025/09/15 21:46:52 by srikuto          ###   ########.fr       */
+/*   Updated: 2025/09/16 14:03:05 by srikuto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void				init_stack_node(int argc, char **argv, t_stack_node **a);
 static void			push_node(t_stack_node **stack, const char *str);
-static t_stack_node	*create_node(const char *str);
+static t_stack_node	*create_node(t_stack_node **stack, const char *str);
 
 void	init_stack_node(int argc, char **argv, t_stack_node **a)
 {
@@ -31,13 +31,15 @@ void	init_stack_node(int argc, char **argv, t_stack_node **a)
 		args = argv;
 		i = 1;
 	}
+	if (is_num(args) == 0)
+		error_exit();
 	while (args[i])
 	{
 		push_node(a, args[i]);
 		i++;
 	}
 	if (argc == 2)
-		free(args);
+		free_split(args);
 }
 
 static void	push_node(t_stack_node **stack, const char *str)
@@ -45,7 +47,7 @@ static void	push_node(t_stack_node **stack, const char *str)
 	t_stack_node	*new_node;
 	t_stack_node	*tail;
 
-	new_node = create_node(str);
+	new_node = create_node(stack, str);
 	if (*stack == NULL)
 	{
 		new_node->next = new_node;
@@ -62,12 +64,14 @@ static void	push_node(t_stack_node **stack, const char *str)
 	}
 }
 
-static t_stack_node	*create_node(const char *str)
+static t_stack_node	*create_node(t_stack_node **stack, const char *str)
 {
 	t_stack_node	*node;
 	int				num;
 
 	num = ft_atoi(str);
+	if (contains_value(*stack, num) == 1)
+		error_exit();
 	node = (t_stack_node *)malloc(sizeof(t_stack_node));
 	if (!node)
 		exit (1);
